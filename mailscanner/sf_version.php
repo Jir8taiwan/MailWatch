@@ -150,7 +150,13 @@ if ('A' !== $_SESSION['user_type']) {
 
     echo '<br>' . "\n";
     echo 'SpamAssassin ' . __('version11') . ' ';
-    passthru(SA_DIR . "spamassassin -V | tr '\\\n' ' ' | cut -d' ' -f3");
+    // My UBUNTU system cannot shown correct information to read, and I modify this code and www-data access.
+    // $sudo chmod -R a+rX /usr/local/share/perl/5.38.2/
+    // Here has tried another 3 ways instead of this default call spamassassin version:
+    //passthru(SA_DIR . "spamassassin -V | tr '\\\n' ' ' | cut -d' ' -f3");
+    //passthru(SA_DIR . "spamassassin -V 2>&1 | grep -o 'v[0-9.]\\+'");
+    //passthru(SA_DIR . "spamassassin -V 2>&1");
+    passthru(SA_DIR . "spamassassin -V 2>&1 | sed 's/^spamassassin: //'");
     echo '<br>' . "\n";
     echo '<br>' . "\n";
     echo 'PHP ' . __('version11') . ' ' . $php_version . '<br>' . "\n";
